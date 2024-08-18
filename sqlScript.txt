@@ -1,0 +1,130 @@
+scriptSqlInit
+
+-- Database: ProjetoLanchonete
+
+-- DROP DATABASE IF EXISTS "ProjetoLanchonete";
+
+CREATE DATABASE "ProjetoLanchonete"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+	
+	
+-- SEQUENCE: public.client_id
+
+-- DROP SEQUENCE IF EXISTS public.client_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.client_id
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 99999
+    CACHE 1;
+
+ALTER SEQUENCE public.client_id
+    OWNER TO postgres;
+	
+
+-- SEQUENCE: public.seq_id
+
+-- DROP SEQUENCE IF EXISTS public.seq_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.seq_id
+    INCREMENT 1
+    START 1
+    MINVALUE 0
+    MAXVALUE 9999998
+    CACHE 1;
+
+ALTER SEQUENCE public.seq_id
+    OWNER TO postgres;
+	
+
+-- SEQUENCE: public.status_id_seq
+
+-- DROP SEQUENCE IF EXISTS public.status_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.status_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 0
+    MAXVALUE 30
+    CACHE 1;
+
+ALTER SEQUENCE public.status_id_seq
+    OWNER TO postgres;
+	
+	
+
+-- Table: public.cliente
+
+-- DROP TABLE IF EXISTS public.cliente;
+
+CREATE TABLE IF NOT EXISTS public.cliente
+(
+    cliente_id integer NOT NULL DEFAULT nextval('client_id'::regclass),
+    cliente_nome character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT cliente_pkey PRIMARY KEY (cliente_id),
+    CONSTRAINT cliente_cliente_nome_key UNIQUE (cliente_nome)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.cliente
+    OWNER to postgres;
+	
+
+
+
+-- Table: public.pedidos_table
+
+-- DROP TABLE IF EXISTS public.pedidos_table;
+
+CREATE TABLE IF NOT EXISTS public.pedidos_table
+(
+    id integer NOT NULL DEFAULT nextval('seq_id'::regclass),
+    item character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    quantidade integer NOT NULL DEFAULT 1,
+    valor numeric(4,2) NOT NULL,
+    cliente_pedido_id integer,
+    pedido_status integer NOT NULL,
+    CONSTRAINT pedidos_table_pkey PRIMARY KEY (id),
+    CONSTRAINT cliente_pedido_fk FOREIGN KEY (cliente_pedido_id)
+        REFERENCES public.cliente (cliente_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_status FOREIGN KEY (pedido_status)
+        REFERENCES public.status (status_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.pedidos_table
+    OWNER to postgres;
+	
+	
+	
+	
+-- Table: public.status
+
+-- DROP TABLE IF EXISTS public.status;
+
+CREATE TABLE IF NOT EXISTS public.status
+(
+    status_id integer NOT NULL DEFAULT nextval('status_id_seq'::regclass),
+    status_name character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT id_status PRIMARY KEY (status_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.status
+    OWNER to postgres;

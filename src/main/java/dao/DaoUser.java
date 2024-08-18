@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import connection.SingleConnection;
 import entity.User;
 
@@ -68,6 +69,33 @@ public class DaoUser {
 			}catch(Exception ex) {
 				ex.printStackTrace();
 			}
+		}
+	}
+	
+	public void insertUsers(List<String> users) {
+		String sql = "insert into cliente(cliente_nome) values(?)";
+		if(users.size() >1) {
+			for(int i = 2; i <= users.size(); i++ ) {
+				sql+= ",(?)";
+			}
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			for(int i = 1;i<= users.size();i++) {
+				statement.setString(i, users.get(i-1));
+			}
+			statement.execute();
+			statement.close();
+			connection.commit();
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		
 		}
 	}
 	

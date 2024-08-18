@@ -1,6 +1,7 @@
 package ProjetoLanchonete.com;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -48,6 +49,22 @@ public class AppTest
 		DaoUser dao = new DaoUser();
 		String name = JOptionPane.showInputDialog("Digite o nome");
 		dao.insertUser(name);
+	}
+	
+	@org.junit.Test
+	public void insertUsers() {
+		DaoUser dao = new DaoUser();
+		List<String> usuarios = new ArrayList<String>();
+	        usuarios.add("Thais");
+	        usuarios.add("Thalita");
+	        usuarios.add("Thomaz");
+	        usuarios.add("Thales");
+	        usuarios.add("Theodoro");
+	        usuarios.add("Thaisla");
+	        usuarios.add("Thalisson");
+	        usuarios.add("Thor");
+	        
+	   dao.insertUsers(usuarios);
 	}
 	
 	@org.junit.Test
