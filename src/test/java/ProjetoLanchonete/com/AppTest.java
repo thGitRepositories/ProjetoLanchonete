@@ -39,7 +39,7 @@ public class AppTest
 	@org.junit.Test
 	public void getUser() {
 		DaoUser dao = new DaoUser();
-		Long id = 2L;
+		Long id = 11L;
 		User user = dao.getUser(id);
 		System.out.println(user);
 	}
