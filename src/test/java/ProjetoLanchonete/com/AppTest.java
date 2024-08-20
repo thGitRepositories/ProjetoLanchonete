@@ -7,7 +7,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import connection.SingleConnection;
+import dao.DaoStatus;
 import dao.DaoUser;
+import entity.Status;
 import entity.User;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -81,6 +83,25 @@ public class AppTest
 		DaoUser dao = new DaoUser();
 		Long id = Long.parseLong(JOptionPane.showInputDialog("Digite o id"));
 		dao.deleteUser(id);
+		
+	}
+	
+	
+	@org.junit.Test
+	public void listStatus() {
+		DaoStatus dao = new DaoStatus();
+		List<Status> status = dao.listStatus();
+		for(Status status_unity: status) {
+			System.out.println(status_unity);
+		}
+		
+	}
+	
+	@org.junit.Test
+	public void getStatus() {
+		DaoStatus dao = new DaoStatus();
+		Status status = dao.getStatus(1L);
+		System.out.println(status);
 		
 	}
 }
