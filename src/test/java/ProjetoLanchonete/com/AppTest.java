@@ -119,7 +119,7 @@ public class AppTest
 	@org.junit.Test
 	public void getPedido() {
 		DaoPedido dao = new DaoPedido();
-		Pedido pedido = dao.getPedido(1l);
+		Pedido pedido = dao.getPedido(2l);
 		System.out.println(pedido);
 	}
 	
@@ -139,6 +139,16 @@ public class AppTest
 		pedido.setQuantiy(quantity);
 		pedido.setStatus_id(status_id);
 		dao.insertPedido(pedido);
+	}
+	
+	@org.junit.Test
+	public void updatePedido() {
+		DaoPedido dao = new DaoPedido();
+		Pedido pedido = dao.getPedido(2L);
+		pedido.setName("X-TUDO COM BATATA FRITA");
+		pedido.setPrice(55.75);
+		pedido.setQuantiy(1);
+		dao.updatePedido(2L, pedido);
 	}
 	
 	@org.junit.Test

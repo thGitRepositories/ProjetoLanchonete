@@ -118,16 +118,20 @@ public class DaoPedido {
 	 * 	Pode ser criado uma classe para instanciar
 	 * 
 	 * */
-	public void updateUser(Long id,String name) {
+	public void updatePedido(Long id,Pedido pedido) {
 		
-		String sql = "update  cliente set cliente_nome = ? "+" where cliente_id = "+id;
+		String sql = "update  pedidos_table set item = ?  ";
+		sql+= ",valor = ?,quantidade=? ";
+		sql+= "where id = "+id;
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setString(1, pedido.getName());
+			statement.setDouble(2, pedido.getPrice());
+			statement.setInt(3, pedido.getQuantiy());
 			statement.execute();
 			statement.close();
 			connection.commit();
-			System.out.println("User update");
+			System.out.println("Pedido update");
 		}catch(Exception e) {
 			e.printStackTrace();
 			try {
