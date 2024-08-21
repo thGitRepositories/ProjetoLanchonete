@@ -7,8 +7,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import connection.SingleConnection;
+import dao.DaoPedido;
 import dao.DaoStatus;
 import dao.DaoUser;
+import entity.Pedido;
 import entity.Status;
 import entity.User;
 import junit.framework.Test;
@@ -103,6 +105,22 @@ public class AppTest
 		Status status = dao.getStatus(1L);
 		System.out.println(status);
 		
+	}
+	
+	@org.junit.Test
+	public void getPedidos() {
+		DaoPedido dao = new DaoPedido();
+		List<Pedido> pedios = dao.listPedidos();
+		for(Pedido pdUser: pedios) {
+			System.out.println(pdUser);
+		}
+	}
+	
+	@org.junit.Test
+	public void getPedido() {
+		DaoPedido dao = new DaoPedido();
+		Pedido pedido = dao.getPedido(1l);
+		System.out.println(pedido);
 	}
 }
 

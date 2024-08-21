@@ -3,19 +3,25 @@ package entity;
 import java.util.Objects;
 
 public class Status {
+	private Long id;
 	private String statusName;
 
 	public Status() {
 		
 	}
 
-	public Status(String statusName) {
+	public Status(String statusName,Long id) {
 		super();
+		this.id = id;
 		this.statusName = statusName;
 	}
 
 	public String getStatusName() {
 		return statusName;
+	}
+	
+	public Long getStatus() {
+		return id;
 	}
 
 	public void setStatusName(String statusName) {
@@ -41,8 +47,10 @@ public class Status {
 
 	@Override
 	public String toString() {
-		return "Status [statusName=" + statusName + "]";
+		return "Status [id=" + id + ", statusName=" + statusName + "]";
 	}
+
+	
 	
 	
 	
