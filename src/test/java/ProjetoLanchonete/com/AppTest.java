@@ -122,6 +122,30 @@ public class AppTest
 		Pedido pedido = dao.getPedido(1l);
 		System.out.println(pedido);
 	}
+	
+	@org.junit.Test
+	public void insertPedido() {
+		DaoPedido dao = new DaoPedido();
+		String item = "Batata (400G)";
+		Long cliente_id = 1L;
+		Long status_id = 1L;
+		Double price = 40.95;
+		Integer quantity = 1;
+		
+		Pedido pedido = new Pedido();
+		pedido.setCliente_id(cliente_id);
+		pedido.setName(item);
+		pedido.setPrice(price);
+		pedido.setQuantiy(quantity);
+		pedido.setStatus_id(status_id);
+		dao.insertPedido(pedido);
+	}
+	
+	@org.junit.Test
+	public void deletarPedido() {
+		DaoPedido dao = new DaoPedido();
+		dao.deletePedido(9L);
+	}
 }
 
 

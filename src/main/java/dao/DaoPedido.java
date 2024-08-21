@@ -61,15 +61,19 @@ public class DaoPedido {
 		
 	}
 	
-	public void insertUser(String name) {
-		String sql = "insert into cliente(cliente_nome) values(?)";
+	public void insertPedido(Pedido pedido) {
+		String sql = "insert into pedidos_table (item,cliente_pedido_id,pedido_status,valor,quantidade) values(?,?,?,?,?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setString(1, pedido.getName());
+			statement.setLong(2, pedido.getCliente_id());
+			statement.setLong(3, pedido.getStatus_id());
+			statement.setDouble(4 ,pedido.getPrice());
+			statement.setInt(5, pedido.getQuantiy());
 			statement.execute();
 			statement.close();
 			connection.commit();
-			System.out.println("User add");
+			System.out.println("Pedido add");
 		}catch(Exception e) {
 			e.printStackTrace();
 			try {
@@ -80,7 +84,7 @@ public class DaoPedido {
 		}
 	}
 	
-	public void insertUsers(List<String> users) {
+	/*public void insertUsers(List<String> users) {
 		String sql = "insert into cliente(cliente_nome) values(?)";
 		if(users.size() >1) {
 			for(int i = 2; i <= users.size(); i++ ) {
@@ -106,7 +110,14 @@ public class DaoPedido {
 		
 		}
 	}
+	*/
 	
+	
+	/*
+	 * 
+	 * 	Pode ser criado uma classe para instanciar
+	 * 
+	 * */
 	public void updateUser(Long id,String name) {
 		
 		String sql = "update  cliente set cliente_nome = ? "+" where cliente_id = "+id;
@@ -129,8 +140,8 @@ public class DaoPedido {
 		
 	}
 	
-	public void deleteUser(Long id) {
-		String sql = "delete from cliente where cliente_id = "+id;
+	public void deletePedido(Long id) {
+		String sql = "delete from pedidos_table where id = "+id;
 		try {
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
