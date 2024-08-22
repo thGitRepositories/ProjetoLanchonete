@@ -162,4 +162,30 @@ public class DaoPedido {
 		}
 	}
 	
+	public List<String> textoFormatdo() {
+		List<String> pedidos = new ArrayList<String>();
+		String sql = "select cliente_nome,pd.item,pd.quantidade,pd.valor,status_name from pedidos_table pd\n ";
+		sql += "inner join status on status_id = pd.pedido_status\n ";
+		sql+= "inner join cliente on cliente_id = cliente_pedido_id";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet result = statement.executeQuery();
+			while(result.next()) {
+				String line = "Cliente: "+ result.getString("cliente_nome")+"\n ";
+				line+= "Item: "+result.getString("item")+"| ";
+				line+= "Quantidade: "+result.getInt("quantidade")+"| ";
+				line+= "Valor: "+result.getDouble("valor")+"| ";
+				line+= "Status: "+result.getString("Status_name");
+				pedidos.add(line);
+				
+				
+			}
+			return pedidos;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 }

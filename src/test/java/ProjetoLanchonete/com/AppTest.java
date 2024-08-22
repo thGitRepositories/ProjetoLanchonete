@@ -126,8 +126,8 @@ public class AppTest
 	@org.junit.Test
 	public void insertPedido() {
 		DaoPedido dao = new DaoPedido();
-		String item = "Batata (400G)";
-		Long cliente_id = 1L;
+		String item = "pizza (G)";
+		Long cliente_id = 17L;
 		Long status_id = 1L;
 		Double price = 40.95;
 		Integer quantity = 1;
@@ -155,6 +155,15 @@ public class AppTest
 	public void deletarPedido() {
 		DaoPedido dao = new DaoPedido();
 		dao.deletePedido(9L);
+	}
+	
+	@org.junit.Test
+	public void StringTexto() {
+		DaoPedido dao = new DaoPedido();
+		List<String> pedidos = dao.textoFormatdo();
+		for(String pedido: pedidos) {
+			System.out.println(pedido);
+		}
 	}
 }
 
